@@ -5,15 +5,15 @@
 
 makeCacheMatrix <- function(x = matrix()) {
 
-     m <- NULL
+     cachedinversion <- NULL
      set <- function(y){
           x <<- y
-          m <<- NULL
+          cachedinversion <<- NULL
      }
-     get <- function()x
-     makeinversion <- x
-     getinversion <- x
-     list(set = set, get=get, makeinversion=makeinversion,getinversion=getinversion)
+     get <- function() x
+     setinversion <- function(inversion) cachedinversion <<- inversion
+     getinversion <- function() cachedinversion
+     list(set = set, get=get, setinversion=setinversion,getinversion=getinversion)
      
 }
 
@@ -23,12 +23,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-     m <- x$getinversion()
-     if(!is.null(m)){
+     cachedinversion <- x$getinversion()
+     if(!is.null(cachedinversion)){
           message("Returning Cached Version of Inverted Matrix")
-          return(m)
+          return(cachedinversion)
      }
      matrixtoinvert <- x$get()
-     m <- makeinversion(matrixtoinvert, ...)
-     m
+     inversion <- solve(matrixtoinvert)
+     x$setinversion(matrixtoinvert, ...)
+     message("Returning [New] Computed Inversion Matrix")
+     return(x$getinversion())
 }
+
