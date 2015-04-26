@@ -1,3 +1,7 @@
+## NOTE TO PEER REVIEWERS: If you'd like to see a "Test Harness" that invokes
+## makeCacheMatrix and cacheSolve, please see the script 'DS-02-R-InvokeR02.R' in this 
+##    GitHub repo--thank you for your review of this code.
+
 ## Put comments here that give an overall description of what your
 ## functions do
 
